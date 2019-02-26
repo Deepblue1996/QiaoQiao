@@ -101,6 +101,9 @@ class FirstScreen : TBaseScreen() {
         loadPictureNet()
     }
 
+    /**
+     * 加载类别
+     */
     private fun loadPictureCategory() {
 
         Dove.flyLife(_dpActivity, CoreApp.jobTask!!.getPictureCategory(),
@@ -117,6 +120,9 @@ class FirstScreen : TBaseScreen() {
             })
     }
 
+    /**
+     * 加载类别图片
+     */
     private fun loadPictureNet() {
 
         Dove.flyLife(_dpActivity,
@@ -134,6 +140,9 @@ class FirstScreen : TBaseScreen() {
             })
     }
 
+    /**
+     * 判断是否到底部
+     */
     private fun isSlideToBottom(recyclerView: RecyclerView?): Boolean {
         if (recyclerView == null) return false
         return recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange()
