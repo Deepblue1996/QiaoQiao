@@ -23,15 +23,43 @@
                     android:layout_height="wrap_content"/>
 
             <RelativeLayout
-                    android:padding="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 <ImageView
-                        android:id="@+id/seeImg"
-                        android:src="@mipmap/see"
-                        android:layout_width="35dp"
-                        android:layout_height="20dp"/>
+                        android:layout_centerVertical="true"
+                        android:id="@+id/menuImg"
+                        android:src="@mipmap/ic_menu"
+                        android:layout_width="30dp"
+                        android:padding="4dp"
+                        android:layout_height="30dp"/>
+
+                <LinearLayout
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    <ImageView
+                            android:id="@+id/seeImg"
+                            android:src="@mipmap/see"
+                            android:layout_width="35dp"
+                            android:layout_height="15dp"/>
+
+                    <TextView
+                            android:layout_marginTop="2dp"
+                            android:textSize="10sp"
+                            android:textColor="@color/white"
+                            android:text="@string/app_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:ignore="SmallSp"/>
+                </LinearLayout>
+
             </RelativeLayout>
         </LinearLayout>
 

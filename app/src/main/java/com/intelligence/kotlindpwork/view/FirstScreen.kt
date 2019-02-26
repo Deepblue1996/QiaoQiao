@@ -38,6 +38,8 @@ class FirstScreen : TBaseScreen() {
     lateinit var drawerLayout: DrawerLayout
     @BindView(R.id.navView)
     lateinit var navView: NavigationView
+    @BindView(R.id.menuImg)
+    lateinit var menuImg: ImageView
     @BindView(R.id.seeImg)
     lateinit var seeImg: ImageView
     @BindView(R.id.recyclerView)
@@ -49,7 +51,7 @@ class FirstScreen : TBaseScreen() {
     private var categoryPictureList: MutableList<CategoryPicture> = ArrayList()
 
     private var pageIndex: Int = 1
-    private var cid: Int = 6
+    private var cid: Int = 1
 
     @SuppressLint("RtlHardcoded")
     override fun init() {
@@ -90,11 +92,11 @@ class FirstScreen : TBaseScreen() {
 
         })
 
-        seeImg.setOnClickListener {
+        menuImg.setOnClickListener {
             drawerLayout.openDrawer(Gravity.LEFT)
         }
 
-        drawerLayout.openDrawer(Gravity.LEFT)
+        //drawerLayout.openDrawer(Gravity.LEFT)
 
         loadPictureCategory()
 
