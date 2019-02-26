@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">KotlinDpWork</string>
+    <string name="app_name">瞧瞧</string>
+    <string name="phone_base_info">手机基本信息</string>
 </resources>
