@@ -37,6 +37,7 @@
 
         <com.intelligence.dpwork.weight.DpRecyclerView
                 android:id="@+id/recyclerView"
+                android:layout_marginStart="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

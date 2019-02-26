@@ -62,7 +62,7 @@ class FirstScreen : TBaseScreen() {
                 p0.setText(R.id.textName, categoriesList[p1].name)
             }
 
-        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = DpAdapter
@@ -70,10 +70,10 @@ class FirstScreen : TBaseScreen() {
             .itemView { p0, p1 ->
                 val img: ImageView = p0.vbi(R.id.imgId) as ImageView
                 when {
-                    p1 % 4 == 1 -> img.layoutParams.height = DisplayUtil.dip2px(context, 220F)
-                    p1 % 4 == 2 -> img.layoutParams.height = DisplayUtil.dip2px(context, 280F)
-                    p1 % 4 == 3 -> img.layoutParams.height = DisplayUtil.dip2px(context, 320F)
-                    else -> img.layoutParams.height = DisplayUtil.dip2px(context, 250F)
+                    p1 % 4 == 1 -> img.layoutParams.height = DisplayUtil.dip2px(context, 170F)
+                    p1 % 4 == 2 -> img.layoutParams.height = DisplayUtil.dip2px(context, 230F)
+                    p1 % 4 == 3 -> img.layoutParams.height = DisplayUtil.dip2px(context, 270F)
+                    else -> img.layoutParams.height = DisplayUtil.dip2px(context, 200F)
                 }
                 ImageUtil.show(context, categoryPictureList[p1].url, img)
             }
