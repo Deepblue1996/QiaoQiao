@@ -97,6 +97,22 @@
         </LinearLayout>
 
         <LinearLayout
+                android:id="@+id/biZhiTouch"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shape_corner_touch_up_top_bottom"
+                android:layout_width="100dp"
+                android:gravity="center"
+                android:layout_height="40dp">
+
+            <TextView
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:text="@string/string_bizhi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
                 android:id="@+id/closeTouch"
                 android:background="@drawable/shape_corner_touch_up_top_bottom"
                 android:layout_width="100dp"

@@ -20,7 +20,8 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-
+import android.app.WallpaperManager
+import android.graphics.BitmapFactory
 
 /**
  * Class - 图片浏览
@@ -44,8 +45,15 @@ class PictureScreen : TBaseScreen() {
     lateinit var scrTouch: LinearLayout
     @BindView(R.id.downTouch)
     lateinit var downTouch: LinearLayout
+    @BindView(R.id.biZhiTouch)
+    lateinit var biZhiTouch: LinearLayout
+
+    // WallpaperManager类：系统壁纸管理。通过它可以获得当前壁纸以及设置指定图片作为系统壁纸。
+    private lateinit var wallpaperManager: WallpaperManager
 
     private lateinit var categoryPicture: CategoryPicture
+
+    private var biZhiPath: String? = null
 
     companion object {
         fun newInstance(categoryPicture: CategoryPicture): PictureScreen {
@@ -59,6 +67,9 @@ class PictureScreen : TBaseScreen() {
     override fun init() {
         Gen.showBlackBg(_dpActivity, categoryPicture.url, imgBgId)
         Gen.showFitBlackBg(context, categoryPicture.url, imgView)
+
+        // 初始化WallpaperManager
+        wallpaperManager = WallpaperManager.getInstance(_dpActivity)
 
         imgView.setOneTouch {
             close()
@@ -117,12 +128,49 @@ class PictureScreen : TBaseScreen() {
                     }
 
                     override fun get() {
+                        ToastUtil.show("下载壁纸中，请稍等")
                         Thread {
                             val path = downLoadImage(context, categoryPicture.url)
                             val mediaScanner = MediaScanner(_dpActivity)
+                            biZhiPath = path
                             mediaScanner.scan(path)
                             runUi {
                                 ToastUtil.show("已保存至本地-$path")
+                            }
+                        }.start()
+
+                    }
+                })
+        }
+
+        biZhiTouch.isLongClickable = true
+        biZhiTouch.setOnTouchListener { v, event ->
+            return@setOnTouchListener TouchUtil.newInstance(R.drawable.shape_corner_touch)
+                .get(v!!, event!!, object : TouchUtil.OnUp {
+                    override fun no() {
+
+                    }
+
+                    override fun get() {
+
+                        if (biZhiPath == null) {
+                            ToastUtil.show("请先下载至本地")
+                            return
+                        }
+                        ToastUtil.show("设置壁纸中，请稍等")
+
+                        Thread {
+                            try {
+                                // 设置壁纸
+                                wallpaperManager.setBitmap(BitmapFactory.decodeFile(biZhiPath, getBitmapOption(1)))
+                                runUi {
+                                    ToastUtil.show("设置壁纸成功")
+                                }
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                                runUi {
+                                    ToastUtil.show("设置壁纸失败")
+                                }
                             }
                         }.start()
 
@@ -146,17 +194,27 @@ class PictureScreen : TBaseScreen() {
 
     }
 
+    private fun getBitmapOption(inSampleSize: Int): BitmapFactory.Options {
+        System.gc()
+        val options = BitmapFactory.Options()
+        options.inPurgeable = true
+        options.inSampleSize = inSampleSize
+        return options
+    }
+
     private fun downLoadImage(context: Context?, url: String?): String {
         val pictureFolder = Environment.getExternalStorageDirectory()
         val appDir = File(pictureFolder, "QiaoQiao")
         if (!appDir.exists()) {
             appDir.mkdirs()
         }
-        val fileName = "" + System.currentTimeMillis() + ".jpg"
+        val fileName = "" + categoryPicture.pid + ".jpg"
         val destFile = File(appDir, fileName)
 
-        val sourceFile = Glide.with(context!!).asFile().load(url).submit().get()
-        copy(sourceFile, destFile)
+        if (!destFile.exists()) {
+            val sourceFile = Glide.with(context!!).asFile().load(url).submit().get()
+            copy(sourceFile, destFile)
+        }
         return destFile.absolutePath
     }
 

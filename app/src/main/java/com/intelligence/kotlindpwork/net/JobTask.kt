@@ -36,7 +36,7 @@ interface JobTask {
     fun getPictureByCategory(
         @Query("c") c: String = "WallPaperAndroid",
         @Query("a") a: String = "getAppsByCategory",
-        @Query("cid") cid: Int = 1,
+        @Query("cid") cid: String = "1",
         @Query("start") start: Int = 1,
         @Query("count") count: Int = 20
     ): Observable<DataExt<CategoryPicture>>

@@ -1,6 +1,7 @@
 package com.intelligence.kotlindpwork.view
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -107,7 +108,17 @@ class FirstScreen : TBaseScreen() {
         drawerLayoutRecyclerView.adapter = DpAdapter
             .newLine(context, categoriesList, R.layout.category_item_layout, 0, 0)
             .itemView { p0, p1 ->
+                if (p1 == cid) {
+                    p0.vbi(R.id.backBg).setBackgroundColor(Color.parseColor("#9999ff"))
+                } else {
+                    p0.vbi(R.id.backBg).setBackgroundColor(Color.parseColor("#ffffff"))
+                }
                 p0.setText(R.id.textName, categoriesList[p1].name)
+            }
+            .itemClick { _, i ->
+                cid = i
+                drawerLayoutRecyclerView.adapter!!.notifyDataSetChanged()
+                refreshLayout.autoRefresh()
             }
     }
 
@@ -153,6 +164,7 @@ class FirstScreen : TBaseScreen() {
         refreshLayout.setOnRefreshListener {
             homeListState = -1
             pageIndex = 1
+            categoryPictureList.clear()
             loadPictureNet()
         }
 
@@ -190,6 +202,7 @@ class FirstScreen : TBaseScreen() {
                 }
 
                 override fun don(p0: Disposable?, p1: DataExt<Categories>) {
+                    cid = 0
                     categoriesList.addAll(p1.data!!)
                     drawerLayoutRecyclerView.adapter!!.notifyDataSetChanged()
                 }
@@ -202,8 +215,17 @@ class FirstScreen : TBaseScreen() {
      */
     private fun loadPictureNet() {
 
+        var cidStr = "1"
+
+        if (categoriesList.size != 0) {
+            cidStr = categoriesList[cid].id!!
+        }
+
         Dove.flyLife(_dpActivity,
-            CoreApp.jobTask!!.getPictureByCategory("WallPaperAndroid", "getAppsByCategory", cid, pageIndex, 20),
+            CoreApp.jobTask!!.getPictureByCategory(
+                "WallPaperAndroid", "getAppsByCategory",
+                cidStr, pageIndex, 20
+            ),
             object : Dover<DataExt<CategoryPicture>>() {
                 override fun die(p0: Disposable?, p1: Throwable) {
                     finishRefreshLoadMore()

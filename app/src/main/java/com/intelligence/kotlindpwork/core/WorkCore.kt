@@ -30,7 +30,8 @@ class WorkCore : DpWorkCore() {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.ACCESS_NETWORK_STATE,
-            Manifest.permission.READ_PHONE_STATE
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.SET_WALLPAPER
         )
             .subscribe(object : Observer<Boolean> {
 
