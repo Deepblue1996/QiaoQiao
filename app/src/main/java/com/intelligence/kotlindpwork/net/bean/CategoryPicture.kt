@@ -1,12 +1,14 @@
 package com.intelligence.kotlindpwork.net.bean
 
+import java.io.Serializable
+
 /**
  * Class -
  *
  *
  * Created by Deepblue on 2019/2/26 0026.
  */
-class CategoryPicture {
+class CategoryPicture: Serializable {
 
     /**
      * pid : 319229

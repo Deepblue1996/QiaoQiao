@@ -8,12 +8,10 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.Gravity
 import android.widget.ImageView
-import android.widget.TextView
 import butterknife.BindView
 import com.intelligence.dpwork.adapter.DpAdapter
 import com.intelligence.dpwork.annotation.DpLayout
 import com.intelligence.dpwork.util.DisplayUtil
-import com.intelligence.dpwork.util.ImageUtil
 import com.intelligence.dpwork.weight.DpRecyclerView
 import com.intelligence.kotlindpwork.R
 import com.intelligence.kotlindpwork.base.TBaseScreen
@@ -21,6 +19,7 @@ import com.intelligence.kotlindpwork.core.CoreApp
 import com.intelligence.kotlindpwork.net.bean.Categories
 import com.intelligence.kotlindpwork.net.bean.CategoryPicture
 import com.intelligence.kotlindpwork.net.bean.DataExt
+import com.intelligence.kotlindpwork.util.Gen
 import com.prohua.dove.Dove
 import com.prohua.dove.Dover
 import io.reactivex.disposables.Disposable
@@ -77,7 +76,7 @@ class FirstScreen : TBaseScreen() {
                     p1 % 4 == 3 -> img.layoutParams.height = DisplayUtil.dip2px(context, 270F)
                     else -> img.layoutParams.height = DisplayUtil.dip2px(context, 200F)
                 }
-                ImageUtil.show(context, categoryPictureList[p1].url, img)
+                Gen.show(context, categoryPictureList[p1].url, img)
             }
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
