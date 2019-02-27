@@ -7,16 +7,17 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.IntDef;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.widget.ScrollerCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.ImageView;
 import com.intelligence.kotlindpwork.weight.gesturedetector.RotateGestureDetector;
 import com.intelligence.kotlindpwork.weight.helper.Rotater;
 import com.intelligence.kotlindpwork.weight.helper.Scaler;
@@ -26,7 +27,7 @@ import com.intelligence.kotlindpwork.weight.util.L;
  * Created by Rrtoyewx on 2016/11/2.
  */
 
-public class TouchImageView extends ImageView {
+public class TouchImageView extends android.support.v7.widget.AppCompatImageView {
     //-------------------default value-------------------------
     private static final float DEGREE_TO_RADIAN = (float) (Math.PI / 180);
     private static final Interpolator DEFAULT_ANIMATION_INTERPOLATOR = new AccelerateDecelerateInterpolator();
@@ -881,6 +882,9 @@ public class TouchImageView extends ImageView {
             final float focusY = e.getY();
             L.d("当前手势为:双击,从" + mNormalizedScale + "到" + targetScale + "进行缩放,缩放中心为:centerX = " + focusX + ",centerY = " + focusY);
             animateScaleImageInner(targetScale, focusX, focusY);
+
+            handler.removeCallbacksAndMessages(null);
+
             return super.onDoubleTap(e);
         }
 
@@ -891,6 +895,19 @@ public class TouchImageView extends ImageView {
 
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
+
+            clickCount++;
+            //双击间四百毫秒延时
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (oneTouch != null) {
+                        oneTouch.onClick();
+                    }
+                    clickCount = 0;
+                }//延时timeout后执行run方法中的代码 
+            }, 400);
+
             return false;
         }
 
@@ -914,6 +931,22 @@ public class TouchImageView extends ImageView {
 
             return super.onFling(e1, e2, velocityX, velocityY);
         }
+    }
+
+    private Handler handler;
+
+    //记录连续点击次数
+    private int clickCount = 0;
+
+    private OneTouch oneTouch;
+
+    public void setOneTouch(OneTouch oneTouch) {
+        this.oneTouch = oneTouch;
+        this.handler = new Handler();
+    }
+
+    public interface OneTouch {
+        void onClick();
     }
 
     class ScaleListener implements ScaleGestureDetector.OnScaleGestureListener {

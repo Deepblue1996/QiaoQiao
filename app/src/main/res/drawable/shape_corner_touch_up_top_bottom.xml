@@ -6,7 +6,7 @@
     <corners android:radius="20dp" />
 
     <!-- 这个标签表示纯色填充，通过android:color即可指定shape中填充的颜色 -->
-    <solid android:color="#33ffffff" />
+    <solid android:color="#66666666" />
 
     <!-- Shape的描边，下面指定了描边的宽度和描边的颜色 -->
     <stroke

@@ -23,22 +23,74 @@
             android:layout_height="match_parent"/>
 
     <LinearLayout
-            android:layout_marginBottom="60dp"
-            android:orientation="horizontal"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
         <LinearLayout
-                android:background="@drawable/corner_bg"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/scrTouch"
+                android:background="@drawable/shape_corner_touch_up_top_bottom"
                 android:layout_width="100dp"
                 android:gravity="center"
-                android:layout_marginEnd="50dp"
                 android:layout_height="40dp">
+
             <TextView
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:text="@string/string_shr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:id="@+id/scaleTouch"
+                android:background="@drawable/shape_corner_touch_up_top_bottom"
+                android:layout_width="100dp"
+                android:gravity="center"
+                android:layout_height="40dp">
+
+            <TextView
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:text="@string/string_scale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:id="@+id/positionTouch"
+                android:background="@drawable/shape_corner_touch_up_top_bottom"
+                android:layout_width="100dp"
+                android:gravity="center"
+                android:layout_height="40dp">
+
+            <TextView
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:text="@string/string_position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/downTouch"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shape_corner_touch_up_top_bottom"
+                android:layout_width="100dp"
+                android:gravity="center"
+                android:layout_height="40dp">
+
+            <TextView
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:text="@string/string_download"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -46,13 +98,14 @@
 
         <LinearLayout
                 android:id="@+id/closeTouch"
-                android:background="@drawable/corner_bg"
+                android:background="@drawable/shape_corner_touch_up_top_bottom"
                 android:layout_width="100dp"
                 android:gravity="center"
                 android:layout_height="40dp">
+
             <TextView
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:text="@string/string_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
