@@ -12,6 +12,7 @@ import butterknife.BindView
 import com.intelligence.dpwork.adapter.DpAdapter
 import com.intelligence.dpwork.annotation.DpLayout
 import com.intelligence.dpwork.util.DisplayUtil
+import com.intelligence.dpwork.util.ToastUtil
 import com.intelligence.dpwork.weight.DpRecyclerView
 import com.intelligence.kotlindpwork.R
 import com.intelligence.kotlindpwork.base.TBaseScreen
@@ -22,10 +23,11 @@ import com.intelligence.kotlindpwork.net.bean.DataExt
 import com.intelligence.kotlindpwork.util.Gen
 import com.prohua.dove.Dove
 import com.prohua.dove.Dover
+import com.scwang.smartrefresh.layout.api.RefreshLayout
 import io.reactivex.disposables.Disposable
 
 /**
- * Class -
+ * Class - 首页
  *
  * Created by Deepblue on 2019/2/25 0025.
  */
@@ -35,25 +37,72 @@ class FirstScreen : TBaseScreen() {
 
     @BindView(R.id.drawerLayout)
     lateinit var drawerLayout: DrawerLayout
-    @BindView(R.id.navView)
-    lateinit var navView: NavigationView
+
     @BindView(R.id.menuImg)
     lateinit var menuImg: ImageView
+
     @BindView(R.id.seeImg)
     lateinit var seeImg: ImageView
+
+    @BindView(R.id.refreshLayout)
+    lateinit var refreshLayout: RefreshLayout
+
     @BindView(R.id.recyclerView)
     lateinit var recyclerView: DpRecyclerView
+
     @BindView(R.id.drawerLayoutRecyclerView)
     lateinit var drawerLayoutRecyclerView: DpRecyclerView
 
+    /**
+     * 分类数据列表
+     */
     private var categoriesList: MutableList<Categories> = ArrayList()
+
+    /**
+     * 图片列表数据
+     */
     private var categoryPictureList: MutableList<CategoryPicture> = ArrayList()
 
+    /**
+     * 列表状态
+     * 0: 默认
+     * -1: 刷新
+     * 1: 加载更多
+     */
+    private var homeListState: Int = 0
+
+    /**
+     * 当前分页
+     */
     private var pageIndex: Int = 1
+
+    /**
+     * 目前选择的分类
+     */
     private var cid: Int = 1
 
-    @SuppressLint("RtlHardcoded")
     override fun init() {
+
+        // 初始化菜单列表
+        initMenuList()
+
+        // 初始化首页列表
+        initHomeList()
+
+        // 初始化首页其他配置
+        initHome()
+
+        // 加载分类
+        loadPictureCategory()
+
+        // 加载首页默认分类
+        loadPictureNet()
+    }
+
+    /**
+     * 初始化菜单列表
+     */
+    private fun initMenuList() {
 
         drawerLayoutRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -62,6 +111,12 @@ class FirstScreen : TBaseScreen() {
             .itemView { p0, p1 ->
                 p0.setText(R.id.textName, categoriesList[p1].name)
             }
+    }
+
+    /**
+     * 初始化首页列表
+     */
+    private fun initHomeList() {
 
         val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = layoutManager
@@ -79,27 +134,48 @@ class FirstScreen : TBaseScreen() {
                 Gen.show(context, categoryPictureList[p1].url, img)
             }
 
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                if (isSlideToBottom(recyclerView)) {
+//                    pageIndex+=20
+//                    loadPictureNet()
+//                }
+//            }
+//
+//        })
 
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (isSlideToBottom(recyclerView)) {
-                    pageIndex+=20
-                    loadPictureNet()
-                }
-            }
+        refreshLayout.isEnableRefresh = true
 
-        })
+        refreshLayout.isEnableLoadMore = true
+
+        refreshLayout.setOnRefreshListener {
+            homeListState = -1
+            pageIndex = 1
+            loadPictureNet()
+        }
+
+        refreshLayout.setOnLoadMoreListener {
+            homeListState = 1
+            pageIndex+=20
+            loadPictureNet()
+        }
+    }
+
+    /**
+     * 初始化首页其他配置
+     */
+    @SuppressLint("RtlHardcoded")
+    private fun initHome() {
 
         menuImg.setOnClickListener {
             drawerLayout.openDrawer(Gravity.LEFT)
         }
 
-        //drawerLayout.openDrawer(Gravity.LEFT)
-
-        loadPictureCategory()
-
-        loadPictureNet()
+        seeImg.setOnClickListener {
+            recyclerView.smoothScrollToPosition(0)
+        }
     }
 
     /**
@@ -130,26 +206,36 @@ class FirstScreen : TBaseScreen() {
             CoreApp.jobTask!!.getPictureByCategory("WallPaperAndroid", "getAppsByCategory", cid, pageIndex, 20),
             object : Dover<DataExt<CategoryPicture>>() {
                 override fun die(p0: Disposable?, p1: Throwable) {
-
+                    finishRefreshLoadMore()
+                    ToastUtil.show("Error:"+p1.message)
                 }
 
                 override fun don(p0: Disposable?, p1: DataExt<CategoryPicture>) {
                     categoryPictureList.addAll(p1.data!!)
                     recyclerView.adapter!!.notifyDataSetChanged()
+                    finishRefreshLoadMore()
                 }
-
             })
     }
 
     /**
-     * 判断是否到底部
+     * 完成刷新
      */
-    private fun isSlideToBottom(recyclerView: RecyclerView?): Boolean {
-        if (recyclerView == null) return false
-        return recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange()
+    private fun finishRefreshLoadMore() {
+        if (homeListState == -1) {
+            refreshLayout.finishRefresh(0)
+        } else {
+            refreshLayout.finishLoadMore(0)
+        }
+        homeListState = 0
     }
 
-    override fun statusBarBlackFont(): Boolean {
-        return false
-    }
+//    /**
+//     * 判断是否到底部
+//     */
+//    private fun isSlideToBottom(recyclerView: RecyclerView?): Boolean {
+//        if (recyclerView == null) return false
+//        return recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange()
+//    }
+
 }

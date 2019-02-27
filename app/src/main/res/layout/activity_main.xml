@@ -63,13 +63,32 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <com.intelligence.dpwork.weight.DpRecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_marginStart="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                           android:id="@+id/refreshLayout"
+                                                           android:layout_width="match_parent"
+                                                           android:layout_height="match_parent"
+                                                           app:srlAccentColor="#666666"
+                                                           app:srlEnablePreviewInEditMode="true">
+            <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+            <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                    android:id="@+id/classHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        </com.intelligence.dpwork.weight.DpRecyclerView>
+            <com.intelligence.dpwork.weight.DpRecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+            </com.intelligence.dpwork.weight.DpRecyclerView>
+
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     </LinearLayout>
 
