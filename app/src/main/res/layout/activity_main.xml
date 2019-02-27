@@ -23,6 +23,7 @@
                     android:layout_height="wrap_content"/>
 
             <RelativeLayout
+                    android:id="@+id/topBar"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="5dp"

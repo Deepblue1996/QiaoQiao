@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.Gravity
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import butterknife.BindView
 import com.intelligence.dpwork.adapter.DpAdapter
 import com.intelligence.dpwork.annotation.DpLayout
@@ -52,6 +53,9 @@ class FirstScreen : TBaseScreen() {
     @BindView(R.id.drawerLayoutRecyclerView)
     lateinit var drawerLayoutRecyclerView: DpRecyclerView
 
+    @BindView(R.id.topBar)
+    lateinit var topBar: RelativeLayout
+
     /**
      * 分类数据列表
      */
@@ -79,6 +83,8 @@ class FirstScreen : TBaseScreen() {
      * 目前选择的分类
      */
     private var cid: Int = 1
+
+    private var topBarHeight: Float = 0f
 
     override fun init() {
 
@@ -119,6 +125,7 @@ class FirstScreen : TBaseScreen() {
                 cid = i
                 drawerLayoutRecyclerView.adapter!!.notifyDataSetChanged()
                 refreshLayout.autoRefresh()
+                drawerLayout.closeDrawers()
             }
     }
 
@@ -188,6 +195,9 @@ class FirstScreen : TBaseScreen() {
         seeImg.setOnClickListener {
             recyclerView.smoothScrollToPosition(0)
         }
+
+        topBar.measure(0, 0)
+        topBarHeight = topBar.layoutParams.height.toFloat()
     }
 
     /**
