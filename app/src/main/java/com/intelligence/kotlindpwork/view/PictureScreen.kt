@@ -1,9 +1,13 @@
 package com.intelligence.kotlindpwork.view
 
+import android.annotation.SuppressLint
+import android.view.MotionEvent
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import butterknife.BindView
 import com.intelligence.dpwork.annotation.DpLayout
+import com.intelligence.dpwork.util.TouchUtil
 import com.intelligence.kotlindpwork.R
 import com.intelligence.kotlindpwork.base.TBaseScreen
 import com.intelligence.kotlindpwork.net.bean.CategoryPicture
@@ -35,6 +39,7 @@ class PictureScreen : TBaseScreen() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun init() {
         Gen.showBlackBg(_dpActivity, categoryPicture.url, imgBgId)
         Gen.showFitBlackBg(context, categoryPicture.url, imgView)
@@ -42,6 +47,18 @@ class PictureScreen : TBaseScreen() {
         closeTouch.setOnClickListener {
             close()
         }
+
+        closeTouch.setOnTouchListener { v, event ->
+            return@setOnTouchListener TouchUtil.newInstance(R.drawable.shape_corner_touch).get(v!!, event!!, object : TouchUtil.OnUp {
+                override fun no() {
+
+                }
+                override fun get() {
+                    close()
+                }
+            })
+        }
+
     }
 
 }
