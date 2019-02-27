@@ -1,6 +1,7 @@
 package com.intelligence.kotlindpwork.view
 
 import android.widget.ImageView
+import android.widget.LinearLayout
 import butterknife.BindView
 import com.intelligence.dpwork.annotation.DpLayout
 import com.intelligence.kotlindpwork.R
@@ -21,6 +22,8 @@ class PictureScreen : TBaseScreen() {
     lateinit var imgBgId: ImageView
     @BindView(R.id.imgView)
     lateinit var imgView: TouchImageView
+    @BindView(R.id.closeTouch)
+    lateinit var closeTouch: LinearLayout
 
     private lateinit var categoryPicture: CategoryPicture
 
@@ -34,8 +37,11 @@ class PictureScreen : TBaseScreen() {
 
     override fun init() {
         Gen.showBlackBg(_dpActivity, categoryPicture.url, imgBgId)
-
         Gen.showFitBlackBg(context, categoryPicture.url, imgView)
+
+        closeTouch.setOnClickListener {
+            close()
+        }
     }
 
 }

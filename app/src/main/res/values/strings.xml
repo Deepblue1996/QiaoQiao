@@ -2,4 +2,6 @@
     <string name="app_name">瞧瞧</string>
     <string name="phone_base_info">手机基本信息</string>
     <string name="image_transition">image_transition</string>
+    <string name="string_close">点击关闭</string>
+    <string name="string_download">点击下载</string>
 </resources>
