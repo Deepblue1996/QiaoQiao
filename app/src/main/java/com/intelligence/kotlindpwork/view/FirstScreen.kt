@@ -1,10 +1,8 @@
 package com.intelligence.kotlindpwork.view
 
 import android.annotation.SuppressLint
-import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.Gravity
 import android.widget.ImageView
@@ -107,7 +105,7 @@ class FirstScreen : TBaseScreen() {
         drawerLayoutRecyclerView.layoutManager = LinearLayoutManager(context)
 
         drawerLayoutRecyclerView.adapter = DpAdapter
-            .newLine(context, categoriesList, com.intelligence.kotlindpwork.R.layout.category_item_layout, 0, 0)
+            .newLine(context, categoriesList, R.layout.category_item_layout, 0, 0)
             .itemView { p0, p1 ->
                 p0.setText(R.id.textName, categoriesList[p1].name)
             }
@@ -122,7 +120,7 @@ class FirstScreen : TBaseScreen() {
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = DpAdapter
-            .newLine(context, categoryPictureList, com.intelligence.kotlindpwork.R.layout.category_img_item_layout, 0, 0)
+            .newLine(context, categoryPictureList, R.layout.category_img_item_layout, 0, 0)
             .itemView { p0, p1 ->
                 val img: ImageView = p0.vbi(R.id.imgId) as ImageView
                 when {
@@ -132,6 +130,8 @@ class FirstScreen : TBaseScreen() {
                     else -> img.layoutParams.height = DisplayUtil.dip2px(context, 200F)
                 }
                 Gen.show(context, categoryPictureList[p1].url, img)
+            }.itemClick { _, i ->
+                open(PictureScreen.newInstance(categoryPictureList[i]))
             }
 
 //        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -158,7 +158,7 @@ class FirstScreen : TBaseScreen() {
 
         refreshLayout.setOnLoadMoreListener {
             homeListState = 1
-            pageIndex+=20
+            pageIndex += 20
             loadPictureNet()
         }
     }
@@ -207,7 +207,7 @@ class FirstScreen : TBaseScreen() {
             object : Dover<DataExt<CategoryPicture>>() {
                 override fun die(p0: Disposable?, p1: Throwable) {
                     finishRefreshLoadMore()
-                    ToastUtil.show("Error:"+p1.message)
+                    ToastUtil.show("Error:" + p1.message)
                 }
 
                 override fun don(p0: Disposable?, p1: DataExt<CategoryPicture>) {

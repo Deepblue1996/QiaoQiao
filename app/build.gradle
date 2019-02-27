@@ -16,6 +16,7 @@ android {
         versionName "1.0"
 
         multiDexEnabled true
+        renderscriptSupportModeEnabled true    // Enable RS support
     }
     buildTypes {
         release {
