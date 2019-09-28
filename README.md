@@ -4,7 +4,7 @@
 [![](https://jitpack.io/v/Deepblue1996/Bun.svg)](https://jitpack.io/#Deepblue1996/Bun)
 <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license-apache-green.svg"></a>
 
-Free ad-free wallpaper software based on DpWork framework.
+Free ad-free wallpaper software based on DpWorkAX framework.
 
 ## LICENSE
 

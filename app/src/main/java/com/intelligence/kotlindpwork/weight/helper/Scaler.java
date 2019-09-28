@@ -1,6 +1,5 @@
 package com.intelligence.kotlindpwork.weight.helper;
 
-import android.graphics.PointF;
 import android.os.SystemClock;
 import android.view.animation.Interpolator;
 

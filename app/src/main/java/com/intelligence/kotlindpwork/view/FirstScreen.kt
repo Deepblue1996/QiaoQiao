@@ -2,18 +2,17 @@ package com.intelligence.kotlindpwork.view
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import butterknife.BindView
-import com.intelligence.dpwork.adapter.DpAdapter
-import com.intelligence.dpwork.annotation.DpLayout
-import com.intelligence.dpwork.util.DisplayUtil
-import com.intelligence.dpwork.util.ToastUtil
-import com.intelligence.dpwork.weight.DpRecyclerView
+import com.deep.dpwork.adapter.DpAdapter
+import com.deep.dpwork.annotation.DpLayout
+import com.deep.dpwork.util.DisplayUtil
+import com.deep.dpwork.util.ToastUtil
+import com.deep.dpwork.weight.DpRecyclerView
 import com.intelligence.kotlindpwork.R
 import com.intelligence.kotlindpwork.base.TBaseScreen
 import com.intelligence.kotlindpwork.core.CoreApp
@@ -84,8 +83,6 @@ class FirstScreen : TBaseScreen() {
      */
     private var cid: Int = 1
 
-    private var topBarHeight: Float = 0f
-
     override fun init() {
 
         // 初始化菜单列表
@@ -134,7 +131,10 @@ class FirstScreen : TBaseScreen() {
      */
     private fun initHomeList() {
 
-        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(
+            3,
+            androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
+        )
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = DpAdapter
@@ -195,9 +195,6 @@ class FirstScreen : TBaseScreen() {
         seeImg.setOnClickListener {
             recyclerView.smoothScrollToPosition(0)
         }
-
-        topBar.measure(0, 0)
-        topBarHeight = topBar.layoutParams.height.toFloat()
     }
 
     /**

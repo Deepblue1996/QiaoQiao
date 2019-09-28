@@ -7,14 +7,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import butterknife.BindView
 import com.bumptech.glide.Glide
-import com.intelligence.dpwork.annotation.DpLayout
-import com.intelligence.dpwork.util.ToastUtil
-import com.intelligence.dpwork.util.TouchUtil
-import com.intelligence.kotlindpwork.R
-import com.intelligence.kotlindpwork.base.TBaseScreen
-import com.intelligence.kotlindpwork.net.bean.CategoryPicture
-import com.intelligence.kotlindpwork.util.Gen
-import com.intelligence.kotlindpwork.weight.TouchImageView
 import com.yanzhenjie.mediascanner.MediaScanner
 import java.io.File
 import java.io.FileInputStream
@@ -22,6 +14,14 @@ import java.io.FileOutputStream
 import java.io.IOException
 import android.app.WallpaperManager
 import android.graphics.BitmapFactory
+import com.deep.dpwork.annotation.DpLayout
+import com.deep.dpwork.util.ToastUtil
+import com.deep.dpwork.util.TouchUtil
+import com.intelligence.kotlindpwork.R
+import com.intelligence.kotlindpwork.base.TBaseScreen
+import com.intelligence.kotlindpwork.net.bean.CategoryPicture
+import com.intelligence.kotlindpwork.util.Gen
+import com.intelligence.kotlindpwork.weight.TouchImageView
 
 /**
  * Class - 图片浏览

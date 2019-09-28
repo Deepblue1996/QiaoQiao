@@ -8,11 +8,10 @@ import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.annotation.IntDef;
-import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.widget.ScrollerCompat;
+import androidx.annotation.IntDef;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.core.widget.ScrollerCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -27,7 +26,7 @@ import com.intelligence.kotlindpwork.weight.util.L;
  * Created by Rrtoyewx on 2016/11/2.
  */
 
-public class TouchImageView extends android.support.v7.widget.AppCompatImageView {
+public class TouchImageView extends androidx.appcompat.widget.AppCompatImageView {
     //-------------------default value-------------------------
     private static final float DEGREE_TO_RADIAN = (float) (Math.PI / 180);
     private static final Interpolator DEFAULT_ANIMATION_INTERPOLATOR = new AccelerateDecelerateInterpolator();

@@ -1,7 +1,7 @@
 package com.intelligence.kotlindpwork.base
 
 import butterknife.ButterKnife
-import com.intelligence.dpwork.base.BaseScreen
+import com.deep.dpwork.base.BaseScreen
 
 /**
  * Class -

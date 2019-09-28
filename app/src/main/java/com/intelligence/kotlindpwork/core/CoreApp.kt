@@ -1,7 +1,7 @@
 package com.intelligence.kotlindpwork.core
 
-import com.intelligence.dpwork.DpWorkApplication
-import com.intelligence.dpwork.annotation.DpBugly
+import com.deep.dpwork.DpWorkApplication
+import com.deep.dpwork.annotation.DpBugly
 import com.intelligence.kotlindpwork.net.JobTask
 import com.prohua.dove.Dove
 import com.prohua.dove.base.Nest
