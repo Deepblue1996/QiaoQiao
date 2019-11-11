@@ -2,32 +2,28 @@ package com.intelligence.kotlindpwork.core
 
 import com.deep.dpwork.DpWorkApplication
 import com.deep.dpwork.annotation.DpBugly
+import com.deep.dpwork.annotation.DpCrash
+import com.deep.dpwork.annotation.net.DoveInit
 import com.intelligence.kotlindpwork.net.JobTask
-import com.prohua.dove.Dove
-import com.prohua.dove.base.Nest
-
 
 /**
- * Class -
+ * Class - 核心
  *
  * Created by Deepblue on 2019/2/25 0025.
  */
-
+@DpCrash
 @DpBugly("123456")
 class CoreApp : DpWorkApplication() {
 
     // Dove Task.
     companion object {
-        var jobTask: JobTask? = null
+        @DoveInit(
+            url = "http://wallpaper.apc.360.cn/",
+            interfaceClass = JobTask::class
+        )
+        lateinit var jobTask: JobTask
     }
 
     override fun initApplication() {
-
-        // 初始化网络层
-        val nest = Nest.build()
-            .setBaseUrl("http://wallpaper.apc.360.cn/")
-            .setInterfaceClass(JobTask::class.java)
-
-        jobTask = Dove.birth<Any>(baseContext, nest) as JobTask?
     }
 }

@@ -10,7 +10,7 @@
             android:layout_margin="10dp"
             android:id="@+id/textName"
             android:textSize="16sp"
-            android:textColor="@color/darkText"
+            android:textColor="@color/mBackGround"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 </LinearLayout>

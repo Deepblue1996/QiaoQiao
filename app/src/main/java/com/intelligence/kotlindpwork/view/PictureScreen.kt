@@ -1,38 +1,37 @@
 package com.intelligence.kotlindpwork.view
 
 import android.annotation.SuppressLint
+import android.app.WallpaperManager
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Environment
-import android.widget.ImageView
 import android.widget.LinearLayout
 import butterknife.BindView
 import com.bumptech.glide.Glide
+import com.deep.dpwork.annotation.DpBlur
+import com.deep.dpwork.annotation.DpLayout
+import com.deep.dpwork.util.ToastUtil
+import com.deep.dpwork.util.TouchUtil
+import com.intelligence.kotlindpwork.R
+import com.intelligence.kotlindpwork.base.TDialogScreen
+import com.intelligence.kotlindpwork.net.bean.CategoryPicture
+import com.intelligence.kotlindpwork.util.Gen
+import com.intelligence.kotlindpwork.weight.TouchImageView
 import com.yanzhenjie.mediascanner.MediaScanner
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-import android.app.WallpaperManager
-import android.graphics.BitmapFactory
-import com.deep.dpwork.annotation.DpLayout
-import com.deep.dpwork.util.ToastUtil
-import com.deep.dpwork.util.TouchUtil
-import com.intelligence.kotlindpwork.R
-import com.intelligence.kotlindpwork.base.TBaseScreen
-import com.intelligence.kotlindpwork.net.bean.CategoryPicture
-import com.intelligence.kotlindpwork.util.Gen
-import com.intelligence.kotlindpwork.weight.TouchImageView
 
 /**
  * Class - 图片浏览
  *
  * Created by Deepblue on 2019/2/27 0027.
  */
+@DpBlur
 @DpLayout(R.layout.picture_screen_layout)
-class PictureScreen : TBaseScreen() {
+class PictureScreen : TDialogScreen() {
 
-    @BindView(R.id.imgBgId)
-    lateinit var imgBgId: ImageView
     @BindView(R.id.imgView)
     lateinit var imgView: TouchImageView
     @BindView(R.id.closeTouch)
@@ -65,11 +64,11 @@ class PictureScreen : TBaseScreen() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun init() {
-        Gen.showBlackBg(_dpActivity, categoryPicture.url, imgBgId)
+
         Gen.showFitBlackBg(context, categoryPicture.url, imgView)
 
         // 初始化WallpaperManager
-        wallpaperManager = WallpaperManager.getInstance(_dpActivity)
+        wallpaperManager = WallpaperManager.getInstance(activity)
 
         imgView.setOneTouch {
             close()
@@ -131,7 +130,7 @@ class PictureScreen : TBaseScreen() {
                         ToastUtil.show("下载壁纸中，请稍等")
                         Thread {
                             val path = downLoadImage(context, categoryPicture.url)
-                            val mediaScanner = MediaScanner(_dpActivity)
+                            val mediaScanner = MediaScanner(activity)
                             biZhiPath = path
                             mediaScanner.scan(path)
                             runUi {
@@ -162,7 +161,7 @@ class PictureScreen : TBaseScreen() {
                         Thread {
                             try {
                                 // 设置壁纸
-                                wallpaperManager.setBitmap(BitmapFactory.decodeFile(biZhiPath, getBitmapOption(1)))
+                                wallpaperManager.setBitmap(BitmapFactory.decodeFile(biZhiPath, getBitmapOption()))
                                 runUi {
                                     ToastUtil.show("设置壁纸成功")
                                 }
@@ -194,11 +193,11 @@ class PictureScreen : TBaseScreen() {
 
     }
 
-    private fun getBitmapOption(inSampleSize: Int): BitmapFactory.Options {
+    private fun getBitmapOption(): BitmapFactory.Options {
         System.gc()
         val options = BitmapFactory.Options()
         options.inPurgeable = true
-        options.inSampleSize = inSampleSize
+        options.inSampleSize = 1
         return options
     }
 

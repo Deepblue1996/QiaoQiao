@@ -3,6 +3,7 @@ package com.intelligence.kotlindpwork.view
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.Gravity
+import android.view.MotionEvent
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.drawerlayout.widget.DrawerLayout
@@ -10,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import butterknife.BindView
 import com.deep.dpwork.adapter.DpAdapter
 import com.deep.dpwork.annotation.DpLayout
+import com.deep.dpwork.annotation.DpMainScreen
+import com.deep.dpwork.dialog.DialogScreen
+import com.deep.dpwork.dialog.DpDialogScreen
 import com.deep.dpwork.util.DisplayUtil
 import com.deep.dpwork.util.ToastUtil
 import com.deep.dpwork.weight.DpRecyclerView
@@ -30,7 +34,7 @@ import io.reactivex.disposables.Disposable
  *
  * Created by Deepblue on 2019/2/25 0025.
  */
-
+@DpMainScreen
 @DpLayout(R.layout.activity_main)
 class FirstScreen : TBaseScreen() {
 
@@ -101,6 +105,17 @@ class FirstScreen : TBaseScreen() {
         loadPictureNet()
     }
 
+    override fun onBack() {
+        DpDialogScreen.createBlur()
+            .setMsg("确定退出瞧瞧?")
+            .addButton(context, "确定") { p0 ->
+                p0!!.close()
+                _dpActivity.finish()
+            }.addButton(
+                context, "点错了"
+            ) { p0 -> p0!!.close() }.open(fragmentManager())
+    }
+
     /**
      * 初始化菜单列表
      */
@@ -114,7 +129,7 @@ class FirstScreen : TBaseScreen() {
                 if (p1 == cid) {
                     p0.vbi(R.id.backBg).setBackgroundColor(Color.parseColor("#9999ff"))
                 } else {
-                    p0.vbi(R.id.backBg).setBackgroundColor(Color.parseColor("#ffffff"))
+                    p0.vbi(R.id.backBg).setBackgroundColor(Color.parseColor("#353A3E"))
                 }
                 p0.setText(R.id.textName, categoriesList[p1].name)
             }
@@ -129,6 +144,7 @@ class FirstScreen : TBaseScreen() {
     /**
      * 初始化首页列表
      */
+    @SuppressLint("ClickableViewAccessibility")
     private fun initHomeList() {
 
         val layoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(
@@ -147,11 +163,20 @@ class FirstScreen : TBaseScreen() {
                     p1 % 4 == 3 -> img.layoutParams.height = DisplayUtil.dip2px(context, 270F)
                     else -> img.layoutParams.height = DisplayUtil.dip2px(context, 200F)
                 }
+                img.setOnTouchListener { _, event ->
+                    when {
+                        MotionEvent.ACTION_DOWN == event.action -> img.alpha = 0.5f
+                        MotionEvent.ACTION_UP == event.action -> {
+                            img.alpha = 1.0f
+                            PictureScreen.newInstance(categoryPictureList[p1])
+                                .open(fragmentManager())
+                        }
+                        else -> img.alpha = 1.0f
+                    }
+                    return@setOnTouchListener true
+                }
                 Gen.show(context, categoryPictureList[p1].url, img)
-            }.itemClick { _, i ->
-                open(PictureScreen.newInstance(categoryPictureList[i]))
             }
-
 //        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 //
 //            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -202,7 +227,7 @@ class FirstScreen : TBaseScreen() {
      */
     private fun loadPictureCategory() {
 
-        Dove.flyLife(_dpActivity, CoreApp.jobTask!!.getPictureCategory(),
+        Dove.flyLife(_dpActivity, CoreApp.jobTask.getPictureCategory(),
             object : Dover<DataExt<Categories>>() {
                 override fun die(p0: Disposable?, p1: Throwable) {
 
@@ -229,7 +254,7 @@ class FirstScreen : TBaseScreen() {
         }
 
         Dove.flyLife(_dpActivity,
-            CoreApp.jobTask!!.getPictureByCategory(
+            CoreApp.jobTask.getPictureByCategory(
                 "WallPaperAndroid", "getAppsByCategory",
                 cidStr, pageIndex, 20
             ),

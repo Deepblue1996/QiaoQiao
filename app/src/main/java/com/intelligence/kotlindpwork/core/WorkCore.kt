@@ -3,9 +3,7 @@ package com.intelligence.kotlindpwork.core
 import android.Manifest
 import android.widget.Toast
 import com.deep.dpwork.DpWorkCore
-import com.deep.dpwork.annotation.DpInit
 import com.deep.dpwork.annotation.DpPermission
-import com.intelligence.kotlindpwork.view.FirstScreen
 
 @DpPermission(
     Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -14,7 +12,6 @@ import com.intelligence.kotlindpwork.view.FirstScreen
     Manifest.permission.READ_PHONE_STATE,
     Manifest.permission.SET_WALLPAPER
 )
-@DpInit(FirstScreen::class)
 class WorkCore : DpWorkCore() {
 
     override fun initCore() {
