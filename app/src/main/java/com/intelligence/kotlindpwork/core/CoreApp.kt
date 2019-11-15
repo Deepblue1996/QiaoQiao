@@ -1,8 +1,6 @@
 package com.intelligence.kotlindpwork.core
 
 import com.deep.dpwork.DpWorkApplication
-import com.deep.dpwork.annotation.DpBugly
-import com.deep.dpwork.annotation.DpCrash
 import com.deep.dpwork.annotation.net.DoveInit
 import com.intelligence.kotlindpwork.net.JobTask
 
@@ -11,8 +9,6 @@ import com.intelligence.kotlindpwork.net.JobTask
  *
  * Created by Deepblue on 2019/2/25 0025.
  */
-@DpCrash
-@DpBugly("123456")
 class CoreApp : DpWorkApplication() {
 
     // Dove Task.

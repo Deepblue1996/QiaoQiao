@@ -17,6 +17,8 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.Scroller;
+
 import com.intelligence.kotlindpwork.weight.gesturedetector.RotateGestureDetector;
 import com.intelligence.kotlindpwork.weight.helper.Rotater;
 import com.intelligence.kotlindpwork.weight.helper.Scaler;
@@ -79,7 +81,7 @@ public class TouchImageView extends androidx.appcompat.widget.AppCompatImageView
     private ScaleType mScaleType;
 
     private Interpolator mInterpolator;
-    private ScrollerCompat mScroller;
+    private Scroller mScroller;
     private float mFlingCurrentX;
     private float mFlingCurrentY;
 
@@ -138,7 +140,7 @@ public class TouchImageView extends androidx.appcompat.widget.AppCompatImageView
         mGestureDetector = new GestureDetectorCompat(context, new GestureListener());
         mRotateGestureDetector = new RotateGestureDetector(context, new RotateListener());
 
-        mScroller = ScrollerCompat.create(mContext, mInterpolator);
+        mScroller = new Scroller(mContext, mInterpolator);
         mScaler = new Scaler(mInterpolator);
         mRotater = new Rotater(mInterpolator);
 
