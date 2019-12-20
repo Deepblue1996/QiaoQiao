@@ -12,7 +12,6 @@ import butterknife.BindView
 import com.deep.dpwork.adapter.DpAdapter
 import com.deep.dpwork.annotation.DpLayout
 import com.deep.dpwork.annotation.DpMainScreen
-import com.deep.dpwork.dialog.DialogScreen
 import com.deep.dpwork.dialog.DpDialogScreen
 import com.deep.dpwork.util.DisplayUtil
 import com.deep.dpwork.util.ToastUtil
@@ -227,7 +226,7 @@ class FirstScreen : TBaseScreen() {
      */
     private fun loadPictureCategory() {
 
-        Dove.flyLife(_dpActivity, CoreApp.jobTask.getPictureCategory(),
+        Dove.flyLife(CoreApp.jobTask.getPictureCategory(),
             object : Dover<DataExt<Categories>>() {
                 override fun die(p0: Disposable?, p1: Throwable) {
 
@@ -253,8 +252,7 @@ class FirstScreen : TBaseScreen() {
             cidStr = categoriesList[cid].id!!
         }
 
-        Dove.flyLife(_dpActivity,
-            CoreApp.jobTask.getPictureByCategory(
+        Dove.flyLife(CoreApp.jobTask.getPictureByCategory(
                 "WallPaperAndroid", "getAppsByCategory",
                 cidStr, pageIndex, 20
             ),

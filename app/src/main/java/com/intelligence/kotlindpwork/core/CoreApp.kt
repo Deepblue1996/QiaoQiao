@@ -20,6 +20,4 @@ class CoreApp : DpWorkApplication() {
         lateinit var jobTask: JobTask
     }
 
-    override fun initApplication() {
-    }
 }
