@@ -6,6 +6,8 @@
 
 Free ad-free wallpaper software based on DpWorkAX framework.
 
+<img src="https://raw.githubusercontent.com/Deepblue1996/QiaoQiao/master/res/1.jpg" width="300"/> <img src="https://raw.githubusercontent.com/Deepblue1996/QiaoQiao/master/res/2.jpg" width="300"/>
+
 ## LICENSE
 
 <pre><code>Copyright 2018 Deepblue
