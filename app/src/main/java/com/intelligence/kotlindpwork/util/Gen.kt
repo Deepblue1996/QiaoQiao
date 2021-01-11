@@ -14,77 +14,74 @@ import com.intelligence.kotlindpwork.R
  *
  * Created by Deepblue on 2019/2/27 0027.
  */
-class Gen {
+object Gen {
 
-    companion object {
-
-        fun show(context: Context?, url: String?, imageView: ImageView?) {
-            if (context != null) {
-                if (imageView != null) {
-                    Glide.with(context)
-                        .load(url)
-                        .transition(DrawableTransitionOptions().crossFade(200))
-                        .apply(
-                            RequestOptions()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .centerCrop()
-                                .placeholder(R.drawable.gen_bg)
-                        )
-                        .into(imageView)
-                }
+    fun show(context: Context?, url: String?, imageView: ImageView?) {
+        if (context != null) {
+            if (imageView != null) {
+                Glide.with(context)
+                    .load(url)
+                    .transition(DrawableTransitionOptions().crossFade(200))
+                    .apply(
+                        RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .centerCrop()
+                            .placeholder(R.drawable.gen_bg)
+                    )
+                    .into(imageView)
             }
         }
-
-        fun showFit(context: Context?, url: String?, imageView: ImageView?) {
-            if (context != null) {
-                if (imageView != null) {
-                    Glide.with(context)
-                        .load(url)
-                        .transition(DrawableTransitionOptions().crossFade(200))
-                        .apply(
-                            RequestOptions()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .fitCenter()
-                                .placeholder(R.drawable.gen_bg)
-                        )
-                        .into(imageView)
-                }
-            }
-        }
-
-        fun showBlackBg(context: Context?, url: String?, imageView: ImageView?) {
-            if (context != null) {
-                if (imageView != null) {
-                    Glide.with(context)
-                        .load(url)
-                        .transition(DrawableTransitionOptions().crossFade(200))
-                        .apply(
-                            RequestOptions()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .centerCrop()
-                                .placeholder(R.drawable.black_bg)
-                        )
-                        .into(imageView)
-                }
-            }
-        }
-
-        fun showFitBlackBg(context: Context?, url: String?, imageView: ImageView?) {
-            if (context != null) {
-                if (imageView != null) {
-                    Glide.with(context)
-                        .load(url)
-                        .transition(DrawableTransitionOptions().crossFade(200))
-                        .apply(
-                            RequestOptions()
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .fitCenter()
-                                .placeholder(R.drawable.black_bg)
-                        )
-                        .into(imageView)
-                }
-            }
-        }
-
     }
+
+    fun showFit(context: Context?, url: String?, imageView: ImageView?) {
+        if (context != null) {
+            if (imageView != null) {
+                Glide.with(context)
+                    .load(url)
+                    .transition(DrawableTransitionOptions().crossFade(200))
+                    .apply(
+                        RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .fitCenter()
+                            .placeholder(R.drawable.gen_bg)
+                    )
+                    .into(imageView)
+            }
+        }
+    }
+
+    fun showBlackBg(context: Context?, url: String?, imageView: ImageView?) {
+        if (context != null) {
+            if (imageView != null) {
+                Glide.with(context)
+                    .load(url)
+                    .transition(DrawableTransitionOptions().crossFade(200))
+                    .apply(
+                        RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .centerCrop()
+                            .placeholder(R.drawable.black_bg)
+                    )
+                    .into(imageView)
+            }
+        }
+    }
+
+    fun showFitBlackBg(context: Context?, url: String?, imageView: ImageView?) {
+        if (context != null) {
+            if (imageView != null) {
+                Glide.with(context)
+                    .load(url)
+                    .transition(DrawableTransitionOptions().crossFade(200))
+                    .apply(
+                        RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .fitCenter()
+                            .placeholder(R.drawable.black_bg)
+                    )
+                    .into(imageView)
+            }
+        }
+    }
+
 }

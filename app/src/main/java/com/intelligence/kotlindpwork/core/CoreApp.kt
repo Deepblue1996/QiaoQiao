@@ -1,7 +1,7 @@
 package com.intelligence.kotlindpwork.core
 
-import com.deep.dpwork.DpWorkApplication
 import com.deep.dpwork.annotation.net.DoveInit
+import com.deep.dpwork.core.kotlin.DpApplicationKt
 import com.intelligence.kotlindpwork.net.JobTask
 
 /**
@@ -9,7 +9,7 @@ import com.intelligence.kotlindpwork.net.JobTask
  *
  * Created by Deepblue on 2019/2/25 0025.
  */
-class CoreApp : DpWorkApplication() {
+class CoreApp : DpApplicationKt() {
 
     // Dove Task.
     companion object {

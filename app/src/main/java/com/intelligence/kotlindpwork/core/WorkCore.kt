@@ -1,9 +1,11 @@
 package com.intelligence.kotlindpwork.core
 
 import android.Manifest
-import com.deep.dpwork.DpWorkCore
+import com.deep.dpwork.annotation.DpMainScreenKt
 import com.deep.dpwork.annotation.DpPermission
+import com.deep.dpwork.core.kotlin.DpInitCoreKt
 import com.deep.dpwork.util.ToastUtil
+import com.intelligence.kotlindpwork.view.FirstScreen
 
 @DpPermission(
     Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -12,10 +14,11 @@ import com.deep.dpwork.util.ToastUtil
     Manifest.permission.READ_PHONE_STATE,
     Manifest.permission.SET_WALLPAPER
 )
-class WorkCore : DpWorkCore() {
+@DpMainScreenKt(FirstScreen::class)
+class WorkCore : DpInitCoreKt() {
 
-    override fun permissionComplete(b: Boolean) {
-        if (!b) ToastUtil.showError("申请权限失败,应用程序无法正常运行！")
+    override fun permissionOnGranted(permissions: MutableList<String>?, all: Boolean) {
+        if (!all) ToastUtil.showError("申请权限失败,应用程序无法正常运行！")
     }
 
 }
